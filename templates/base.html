@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{{ config['SITE_NAME'] }}{% endblock %}</title>
+        <meta name="viewport" value="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="/static/rm/css/style.css">
+
+        {# IE-only: IE8.js #}
+        <!--[if lt IE 8]>
+        <script src="//ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>
+        <![endif]-->
+        {# IE-only: HTML5 shim #}
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        {# Analytics #}
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-5455139-7']);
+            _gaq.push(['_setDomainName', 'rossmasters.com']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="{{ url_for('home') }}">{{ config['SITE_NAME'] }}</a>
+                    <nav class="nav-collapse">
+                        <ul class="nav">
+                        {%- for endpoint, caption in [
+                            ('home', 'Home'),
+                            ('projects', 'Projects'),
+                            ('blog', 'Blog'),
+                            ('about', 'About')
+                            ] %}
+                            <li{% if endpoint == request.endpoint %} class="active"{% endif %}>
+                                <a href="{{ url_for(endpoint) }}">{{ caption }}</a>
+                                </li>
+                        {% endfor -%}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            {% block body %}{% endblock %}
+
+            <footer class="site-footer">
+                <p>&copy; {{ config['AUTHOR_NAME'] }}. Powered by <a href="http://github.com/rmasters/rmweb">rmweb</a>.</p>
+            </footer>
+        </div>
+    </body>
+</html>

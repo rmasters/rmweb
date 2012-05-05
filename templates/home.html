@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block body %}
+{# Hello #}
+<div class="row">
+    <div class="span12">
+        <section class="block">
+            <header><h1>Hi!</h1></header>
+            <p>I'm a software developer living in the <del>sunny</del> city of Plymouth, on the south-west coast of the United Kingdom. I like developing web applications and services, as well as mobile interfaces for them. At the moment I'm mainly working in Python, PHP (with Zend Framework), MySQL, PostgreSQL and Android. I'm studying my final year of Computer Science at the University of Plymouth.</p>
+        </section>
+    </div>
+</div>
+
+{# Dynamic blocks #}
+{% macro open_block(list) %}
+    {%- if list|count > 0: %}
+    <section class="block">
+    {% else %}
+    <section class="block block-inactive">
+    {% endif -%}
+{% endmacro %}
+<div class="row">
+    <div class="span4">
+        {{ open_block(projects) }}
+            <header><h2>Projects</h2></header>
+            {% if projects and projects|count > 0 %}
+            <ul>
+                {% for prj in projects %}
+                <li><a href="{{ url_for('project', slug=prj.slug) }}">{{ prj.name }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Sorry, no projects to show at the moment.</p>
+            {% endif %}
+        </section>
+    </div>
+
+    <div class="span4">
+        {{ open_block(blogs) }}
+            <header><h2>Blog posts</h2></header>
+            {% if blogs and blogs|count > 0 %}
+            <ul>
+                {% for blog in blogs %}
+                <li><a href="{{ url_for('blog_post', slug=blog.slug) }}">{{ blog.title }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Sorry, no blog posts to show at the moment.</p>
+            {% endif %}
+        </section>
+    </div>
+
+    <div class="span4">
+        {{ open_block(links) }}
+            <header><h2>Links</h2></header>
+            {% if links and links|count > 0 %}
+            <ul>
+                {% for link in links %}
+                <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Sorry, no links to show at the moment.</p>
+            {% endif %}
+        </section>
+    </div>
+</div>
+{% endblock %}

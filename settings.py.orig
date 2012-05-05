@@ -1,0 +1,6 @@
+SQLALCHEMY_DATABASE_URI=''
+
+# Used in the title and navbar
+SITE_NAME='Some site'
+# Used in the footer
+AUTHOR_NAME='Your name'

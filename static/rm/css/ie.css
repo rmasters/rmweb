@@ -1,0 +1,13 @@
+* {
+    *behaviour: url(/static/rm/js/boxsizing.htc);
+}
+
+.block {
+    border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+}
+
+.block-inactive {
+    border-top: 1px solid #aaa;
+}

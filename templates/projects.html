@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="page-header"><h1>Projects</h1></div>
+
+{# Active projects #}
+<h2>Things I'm currently working on</h2>
+<div class="row">
+    {% for prj in active %}
+    <div class="span6">
+        <article class="block">
+            <header><h2><a href="{{ url_for('project', slug=prj.slug) }}">{{ prj.name }}</a></h2></header>
+            <p>{{ prj.description }}</p>
+        </article>
+    </div>
+    {% endfor %}
+</div>
+
+{# Inactive projects #}
+<h2>Past projects</h2>
+<div class="row">
+    {% for prj in inactive %}
+    <div class="span4">
+        <article class="block block-small">
+            <header><h2><a href="{{ url_for('project', slug=prj.slug) }}">{{ prj.name }}</a></h2></header>
+            <p>{{ prj.description }}</p>
+        </article>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

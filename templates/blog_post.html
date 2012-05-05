@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="page-header"><h1>{{ post.title }}</h1></div>
+<div class="row">
+    <div class="span12">
+        <section class="block">
+            <p class="post-meta">
+            Originally written on {{ post.created.strftime('%Y-%m-%d %H:%M:%S') }}.
+            {% if post.updated %}Last updated on {{ post.updated.strftime('%Y-%m-%d %H:%M:%S') }}.{% endif %}
+            {% if post.published %}Published on {{ post.published.strftime('%Y-%m-%d %H:%M:%S') }}.{% else %}<span class="label label-warning">Unpublished</span>{% endif %}
+            </p>
+            {{ post.content_as_html()|safe }}
+        </section>
+    </div>
+</div>
+{% endblock %}
