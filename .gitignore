@@ -3,3 +3,4 @@
 *.pyc
 settings.py
 !settings.py.orig
+web.wsgi
