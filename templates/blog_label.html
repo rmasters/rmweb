@@ -1,0 +1,13 @@
+{% extends "blog.html" %}
+
+{% block description %}
+<section class="block">
+    <header><h2>{{ label.label }}</h2></header>
+    {{ label.description_as_html()|safe }}
+    {% if label.project %}
+    <p>These posts are related to the project <a href="{{ url_for('project', slug=label.project.slug) }}">{{ label.project.name }}</a></p>
+    {% endif %}
+</section>
+{% endblock %}
+
+{% set posts = label.published_posts() %}

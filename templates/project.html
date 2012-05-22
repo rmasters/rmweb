@@ -11,9 +11,14 @@
     </div>
 
     <div class="span4">
-        {% if project.posts and project.posts|count > 0 %}
+        {% if project.label and project.label.published_posts()|count > 0 %}
         <section class="block">
             <header><h3>Related blog posts</h3></header>
+            <ul>
+            {% for post in project.label.published_posts() %}
+                <li><a href="{{ url_for('blog_post', slug=post.slug) }}">{{ post.title }}</a></li>
+            {% endfor %}
+            </ul>
         </section>
         {% else %}
         <section class="block block-inactive">

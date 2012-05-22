@@ -1,28 +1,36 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div class="page-header"><h1>Blog</h1></div>
+<div class="page-header"><h1>{% block title %}Blog{% endblock %}</h1></div>
+
 <div class="row">
-    {% if posts and posts|count > 0 %}
     <div class="span8">
+    {% block posts %}
+    {% if posts and posts|count > 0 %}
         {% for post in posts %}
         <section class="block">
             <header><h2><a href="{{ url_for('blog_post', slug=post.slug) }}">{{ post.title }}</a></h2></header>
         </section>
         {% endfor %}
+    {% else %}
+        <section class="block block-inactive">
+            <header><h2>There's nothing here!</h2></header>
+            <p>Sorry, I haven't published any posts here yet. Check back soon!</p>
+        </section>
+    {% endif %}
+    {% endblock %}
     </div>
+
     <div class="span4">
+        {% block description %}{% endblock %}
         <section class="block">
             <header><h3>Labels</h3></header>
+            <ul>
+            {% for label in labels %}
+                <li><a href="{{ url_for('blog_post_label', slug=label.slug) }}">{{ label.label }}</a></li>
+            {% endfor %}
+            </ul>
         </section>
     </div>
-    {% else %}
-    <div class="span12">
-    <section class="block block-inactive">
-        <header><h2>There's nothing here!</h2></header>
-        <p>Sorry, I haven't published any posts here yet. Check back soon!</p>
-    </section>
-    </div>
-    {% endif %}
 </div>
 {% endblock %}
