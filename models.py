@@ -61,10 +61,7 @@ class BlogLabel(db.Model):
     project = db.relationship('Project', backref='label', uselist=False)
 
     def published_posts(self):
-        posts = []
-        for post in self.posts:
-            if post.published is not None:
-                posts.append(post)
+        posts = [post for post in self.posts if post.published != None]
         return posts
 
     def description_as_html(self):
