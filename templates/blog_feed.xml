@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>{{config.SITE_NAME}}</title>
+        <link>{{url_for('home', _external=True)}}</link>
+        {% if config.SITE_DESCRIPTION %}
+        <description>{{config.SITE_DESCRIPTION}}</description>
+        {% else %}
+        <description>{{config.SITE_NAME}} blog</description>
+        {% endif %}
+{% for post in posts %}
+        <item>
+            <title>{{post.title}}</title>
+            <description>{{post.content_as_html()}}</description>
+            <pubDate>{{post.created.strftime('%a, %d %b %Y %H:%M:%S %Z')}}</pubDate>
+            <link>{{url_for('blog_post', slug=post.slug, _external=True)}}</link>
+            <guid>{{url_for('blog_post', slug=post.slug, _external=True)}}</guid>
+{% for label in post.labels %}
+            <category>{{label.label}}</category>
+{% endfor %}
+        </item>
+{% endfor %}
+    </channel>
+</rss>

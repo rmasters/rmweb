@@ -1,4 +1,4 @@
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, make_response
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -36,6 +36,14 @@ def project(slug):
 def blog():
     posts = BlogPost.query.filter(BlogPost.published != None).order_by(BlogPost.published.desc()).limit(30).all()
     return render_template('blog.html', posts=posts, labels=BlogLabel.query.all())
+
+@app.route('/blog.rss')
+def blog_rss():
+    posts = BlogPost.query.filter(BlogPost.published != None).order_by(BlogPost.published.desc()).limit(10).all()
+
+    r = make_response(render_template('blog_feed.xml', posts=posts))
+    r.mimetype = 'application/xml'
+    return r
 
 @app.route('/blog/<slug>')
 def blog_post(slug):
